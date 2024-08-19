@@ -1,0 +1,9 @@
+<div *ngIf="userDetails" class="user-details-card">
+    <h2>{{ userDetails.name }}</h2>
+    <p><strong>Date of Birth:</strong> {{ userDetails.dateOfBirth }}</p>
+    <p><strong>Mobile Number:</strong> {{ userDetails.mobileNumber }}</p>
+    <p><strong>Address:</strong> {{ userDetails.city }}, {{ userDetails.state }}, {{ userDetails.country }}</p>
+    <p><strong>Pincode:</strong> {{ userDetails.pincode }}</p>
+    <button (click)="goBack()">Go Back</button>
+  </div>
+  

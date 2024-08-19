@@ -1,0 +1,18 @@
+.form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 0.875rem;
+  }
+  .btn{
+    background-color: green;
+  }
+  .signup-img {
+    width: 100px;
+    height: 100px;
+  }
+  .error-msg-color {
+    color:red;
+  }

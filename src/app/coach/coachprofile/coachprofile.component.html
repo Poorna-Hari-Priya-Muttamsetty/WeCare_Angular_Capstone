@@ -1,0 +1,16 @@
+<div class="coach-profile">
+    <div *ngIf="coachDetails; else noCoach">
+      <h2>{{ coachDetails.name }}</h2>
+      <p> <strong> Gender: </strong> {{ coachDetails.gender }} </p>
+      <p><strong>Date of Birth:</strong> {{ coachDetails.dateOfBirth }}</p>
+      <p><strong>Mobile Number:</strong> {{ coachDetails.mobileNumber }}</p>
+      <p> <strong> Specilaity: </strong> {{ coachDetails.speciality }} </p>
+      <button (click)="goBack()">Go Back</button>
+    </div>
+    <ng-template #noCoach>
+      <div class="no-schedules">
+        <p>{{ msg }}</p>
+      </div>
+    </ng-template>
+  </div>
+  

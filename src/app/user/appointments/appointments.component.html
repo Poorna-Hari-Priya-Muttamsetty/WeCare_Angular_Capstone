@@ -1,0 +1,40 @@
+<div *ngIf="appointments">
+    <div *ngFor="let appointment of appointments" class="appointment-card">
+      <p>Appointment Date: {{ appointment.appointmentDate }}</p>
+      <p>Slot Timing: {{ appointment.slot }}</p>
+      <p>Booking ID: {{ appointment.id }}</p>
+      <p>User ID: {{ appointment.userId }}</p>
+      <p>Coach ID: {{ appointment.coachId }}</p>
+      <button (click)="selectedAppointment = appointment">Reschedule Appointment</button>
+      <button (click)="cancel(appointment.id)">Cancel Appointment</button>
+    </div>
+  </div>
+  
+  <div *ngIf="appointments?.length === 0">
+    <p>You haven't made any appointment yet.</p>
+    <button (click)="goBack()">Go Back</button>
+  </div>
+  
+  <div *ngIf="selectedAppointment" class="reschedule-form">
+    <form [formGroup]="rescheduleForm" (ngSubmit)="rescheduleAppointment()">
+      <label for="appointmentDate">Date of Appointment:</label>
+      <input id="appointmentDate" formControlName="appointmentDate" type="date" />
+      <div *ngIf="rescheduleForm.get('appointmentDate')?.invalid && rescheduleForm.get('appointmentDate')?.touched">
+        <small *ngIf="rescheduleForm.get('appointmentDate')?.hasError('required')">Date is required.</small>
+        <small *ngIf="rescheduleForm.get('appointmentDate')?.hasError('upcomingSevenDays')">Date should be within the next 7 days.</small>
+      </div>
+  
+      <label for="slot">Slot:</label>
+      <div id="slot" formGroupName="slot">
+        <label><input type="radio" formControlName="slot" value="10am-11am"> 10 am - 11 am</label>
+        <label><input type="radio" formControlName="slot" value="11am-12pm"> 11 am - 12 pm</label>
+        <!-- Add more slots as necessary -->
+      </div>
+      <div *ngIf="rescheduleForm.get('slot')?.invalid && rescheduleForm.get('slot')?.touched">
+        <small *ngIf="rescheduleForm.get('slot')?.hasError('required')">Slot is required.</small>
+      </div>
+  
+      <button type="submit" [disabled]="rescheduleForm.invalid">Reschedule your Appointment</button>
+    </form>
+  </div>
+  

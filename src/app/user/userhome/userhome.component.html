@@ -1,0 +1,36 @@
+<div class="coach-cards">
+    <div *ngFor="let coach of coachArray" class="coach-card">
+      <h3>{{ coach.name }}</h3>
+      <p>Speciality: {{ coach.speciality }}</p>
+      <button (click)="selectedCoach = coach; appointmentForm.reset()">Book an Appointment</button>
+    </div>
+  </div>
+  
+  <!-- Appointment Booking Modal -->
+  <div *ngIf="selectedCoach">
+    <h2>Proceed with your Appointment</h2>
+    <form [formGroup]="appointmentForm" (ngSubmit)="confirmAppointment(selectedCoach.id)">
+      <div>
+        <label for="appointmentDate">Date of Appointment:</label>
+        <input type="date" id="appointmentDate" formControlName="appointmentDate" />
+        <div *ngIf="appointmentForm.controls['appointmentDate'].errors?.['required']">
+          <small>Date is required.</small>
+        </div>
+        <div *ngIf="appointmentForm.controls['appointmentDate'].errors?.['invalidDate']">
+          <small>Date should be within the next 7 days.</small>
+        </div>
+      </div>
+      <div>
+        <label>Preferred Slot:</label>
+        <label><input type="radio" formControlName="slot" value="morning" /> Morning</label>
+        <label><input type="radio" formControlName="slot" value="afternoon" /> Afternoon</label>
+        <label><input type="radio" formControlName="slot" value="evening" /> Evening</label>
+        <div *ngIf="appointmentForm.controls['slot'].errors?.['required']">
+          <small>Slot is required.</small>
+        </div>
+      </div>
+      <button type="submit" [disabled]="!appointmentForm.valid">Confirm your Appointment</button>
+      <button type="button" (click)="selectedCoach = null">Cancel</button>
+    </form>
+  </div>
+  

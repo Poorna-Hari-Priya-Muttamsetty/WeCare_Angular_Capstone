@@ -1,0 +1,16 @@
+<div class="coach-home">
+  <div *ngIf="scheduleDetails.length > 0; else noSchedules">
+      <div *ngFor="let schedule of scheduleDetails">
+        <p>Appointment Date: {{ schedule.appointmentDate }}</p>
+        <p>Slot Timing: From {{ schedule.slot }}</p>
+        <p>User ID: {{ schedule.userId }}</p>
+        <p>Coach ID: {{ schedule.coachId }}</p>
+      </div>
+  </div>
+  <ng-template #noSchedules>
+    <div class="no-schedules">
+      <img [src]="imgUrl" alt="No schedules"><br>
+      <p>{{ msg }}</p>
+    </div>
+  </ng-template>
+</div>

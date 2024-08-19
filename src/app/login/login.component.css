@@ -1,0 +1,15 @@
+.form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 0.875rem;
+  }
+  .login {
+    background-color: green;
+  }
+  .login-img {
+    width : 100px;
+    height : 100px;
+  }

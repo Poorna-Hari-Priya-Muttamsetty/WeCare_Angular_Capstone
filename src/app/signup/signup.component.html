@@ -1,0 +1,249 @@
+<div id="signup-container">
+    <img [src] = "signUpImg" alt="Sign Up Image" class="signup-img">
+    <h2>{{ signUpTitle }}</h2>
+</div>
+
+<form *ngIf="formDisplay && !registrationSuccess;" [formGroup]="role === 'coaches' ? coachregisterForm : userregisterForm" (ngSubmit)="role === 'coaches' ? coachRegister() : userRegister()">
+    <div *ngIf="role === 'users'">
+        <div class="form-group">
+            <input
+                type = "text"
+                formControlName = "name"
+                placeholder="Name"
+                class="form-control"
+            />
+            <div *ngIf="userregisterForm.get('name') as userNameControl">
+                <div *ngIf="userNameControl.invalid && userNameControl.touched">
+                    <small *ngIf="userNameControl.errors?.['required']" class="error-msg-color">Name is required.</small>
+                    <small *ngIf="userNameControl.errors?.['minLength'] && userNameControl.dirty" class="error-msg-color">Name should have min 3 char's.</small>
+                    <small *ngIf="userNameControl.errors?.['maxLength']" class="error-msg-color">Name can have upto 50 char's.</small>
+                </div>
+            </div>
+            <!-- <small *ngIf="userregisterForm.controls['name'].errors && userregisterForm.controls['name'].dirty"> Name should be of 3-10 char's</small> -->
+        </div>
+        <div class="form-group">
+            <input
+                type = "password"
+                formControlName = "password"
+                placeholder="Password"
+                class="form-control"
+            />
+            <div *ngIf="userregisterForm.get('password') as userPsdControl">
+                <div *ngIf="userPsdControl.invalid && userPsdControl.touched">
+                    <small *ngIf="userPsdControl.errors?.['required']" class="error-msg-color">Password is required.</small>
+                    <small *ngIf="userPsdControl.errors?.['minLength']" class="error-msg-color">Password should have min 5 char's.</small>
+                    <small *ngIf="userPsdControl.errors?.['maxLength']" class="error-msg-color">Password can have upto 10 char's.</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input
+                type = "text"
+                formControlName = "mobileNumber"
+                placeholder="Mobile Number"
+                class="form-control"
+            />
+            <div *ngIf="userregisterForm.get('mobileNumber') as userPhnControl">
+                <div *ngIf="userPhnControl.invalid && userPhnControl.touched">
+                    <small *ngIf="userPhnControl.errors?.['required']" class="error-msg-color"> Mobile Number  is required.</small>
+                    <!-- <small *ngIf="userPhnControl.errors?.['pattern']" class="error-msg-color">Mobile Number should have 10 digits</small> -->
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input
+                type = "text"
+                formControlName = "email"
+                placeholder="Email"
+                class="form-control"
+            />
+            <div *ngIf="userregisterForm.get('email') as userEmailControl">
+                <div *ngIf="userEmailControl.invalid && userEmailControl.touched">
+                    <small *ngIf="userEmailControl.errors?.['required']" class="error-msg-color"> Email is required.</small>
+                    <small *ngIf="userEmailControl.errors?.['email']" class="error-msg-color"> Email should be of Valid format</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input
+                type = "date"
+                formControlName = "dateOfBirth"
+                placeholder="Date of Birth"
+                class="form-control"
+            />
+            <div *ngIf="userregisterForm.get('email') as userDOBControl">
+                <div *ngIf="userDOBControl.invalid && userDOBControl.touched">
+                    <small *ngIf="userDOBControl.errors?.['required']" class="error-msg-color"> DOB is required & age should be b/t 20-100.</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Gender</label><br>
+            <label><input type="radio" formControlName="gender" value="male"/> Male</label>
+            <label><input type="radio" formControlName="gender" value="female"/> Female</label>
+            <div *ngIf="userregisterForm.get('gender') as userGenderControl">
+                <div *ngIf="userGenderControl.invalid && userGenderControl.touched">
+                    <small *ngIf="userGenderControl.errors?.['required']" class="error-msg-color"> Gender is required.</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input
+                type = "text"
+                formControlName = "pincode"
+                placeholder="Pincode"
+                class="form-control"
+            />
+            <div *ngIf="userregisterForm.get('mobileNumber') as userPinCodeControl">
+                <div *ngIf="userPinCodeControl.invalid && userPinCodeControl.touched">
+                    <small *ngIf="userPinCodeControl.errors?.['required']" class="error-msg-color"> Pincode  is required.</small>
+                    <!-- <small *ngIf="userPinCodeControl.errors?.['pattern']" class="error-msg-color">Pincode should have 6 digits</small> -->
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input
+                type = "text"
+                formControlName = "city"
+                placeholder="city"
+                class="form-control"
+            />
+            <div *ngIf="userregisterForm.get('city') as userCityControl">
+                <div *ngIf="userCityControl.invalid && userCityControl.touched">
+                    <small *ngIf="userCityControl.errors?.['required']" class="error-msg-color">City is required.</small>
+                    <small *ngIf="userCityControl.errors?.['minLength']" class="error-msg-color">City should have min 6 char's.</small>
+                    <small *ngIf="userCityControl.errors?.['maxLength']" class="error-msg-color">City can have upto 20 char's.</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input
+                type = "text"
+                formControlName = "state"
+                placeholder="state"
+                class="form-control"
+            />
+            <div *ngIf="userregisterForm.get('city') as userStateControl">
+                <div *ngIf="userStateControl.invalid && userStateControl.touched">
+                    <small *ngIf="userStateControl.errors?.['required']" class="error-msg-color">State is required.</small>
+                    <small *ngIf="userStateControl.errors?.['minLength']" class="error-msg-color">State should have min 6 char's.</small>
+                    <small *ngIf="userStateControl.errors?.['maxLength']" class="error-msg-color">State can have upto 20 char's.</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input
+                type = "text"
+                formControlName = "country"
+                placeholder="country"
+                class="form-control"
+            />
+            <div *ngIf="userregisterForm.get('country') as userCountryControl">
+                <div *ngIf="userCountryControl.invalid && userCountryControl.touched">
+                    <small *ngIf="userCountryControl.errors?.['required']" class="error-msg-color">Country is required.</small>
+                    <small *ngIf="userCountryControl.errors?.['minLength']" class="error-msg-color">Country should have min 6 char's.</small>
+                    <small *ngIf="userCountryControl.errors?.['maxLength']" class="error-msg-color">Country can have upto 20 char's.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="role === 'coaches'">
+        <div class="form-group">
+            <input
+                type = "text"
+                formControlName = "name"
+                placeholder="Name"
+                class="form-control"
+            />
+            <div *ngIf="coachregisterForm.get('name') as coachNameControl">
+                <div *ngIf="coachNameControl.invalid && coachNameControl.touched">
+                    <small *ngIf="coachNameControl.errors?.['required']" class="error-msg-color">Name is required.</small>
+                    <small *ngIf="coachNameControl.errors?.['minLength']" class="error-msg-color">Name should have min 3 char's.</small>
+                    <small *ngIf="coachNameControl.errors?.['maxLength']" class="error-msg-color">Name can have upto 50 char's.</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input
+                type = "password"
+                formControlName = "password"
+                placeholder="Password"
+                class="form-control"
+            />
+            <div *ngIf="coachregisterForm.get('password') as coachPsdControl">
+                <div *ngIf="coachPsdControl.invalid && coachPsdControl.touched">
+                    <small *ngIf="coachPsdControl.errors?.['required']" class="error-msg-color">Password is required.</small>
+                    <small *ngIf="coachPsdControl.errors?.['minLength']" class="error-msg-color">Password should have min 5 char's.</small>
+                    <small *ngIf="coachPsdControl.errors?.['maxLength']" class="error-msg-color">Password can have upto 10 char's.</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input
+                type = "text"
+                formControlName = "mobileNumber"
+                placeholder="Mobile Number"
+                class="form-control"
+            />
+            <div *ngIf="coachregisterForm.get('mobileNumber') as coachPhnControl">
+                <div *ngIf="coachPhnControl.invalid && coachPhnControl.touched">
+                    <small *ngIf="coachPhnControl.errors?.['required']" class="error-msg-color"> Mobile Number  is required.</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input
+                type = "date"
+                formControlName = "dateOfBirth"
+                placeholder="Date of Birth"
+                class="form-control"
+            />
+            <div *ngIf="coachregisterForm.get('email') as coachDOBControl">
+                <div *ngIf="coachDOBControl.invalid && coachDOBControl.touched">
+                    <small *ngIf="coachDOBControl.errors?.['required']" class="error-msg-color"> DOB is required & age should be b/t 20-100.</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Gender</label><br>
+            <label><input type="radio" formControlName="gender" value="male"/> Male</label>
+            <label><input type="radio" formControlName="gender" value="female"/> Female</label>
+            <div *ngIf="coachregisterForm.get('gender') as coachGenderControl">
+                <div *ngIf="coachGenderControl.invalid && coachGenderControl.touched">
+                    <small *ngIf="coachGenderControl.errors?.['required']" class="error-msg-color"> Gender is required.</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input
+                type = "text"
+                formControlName = "speciality"
+                placeholder="speciality"
+                class="form-control"
+            />
+            <div *ngIf="coachregisterForm.get('speciality') as coachSpecControl">
+                <div *ngIf="coachSpecControl.invalid && coachSpecControl.touched">
+                    <small *ngIf="coachSpecControl.errors?.['required']" class="error-msg-color">Speciality is required.</small>
+                    <small *ngIf="coachSpecControl.errors?.['minLength']" class="error-msg-color">Speciality should have min 3 char's.</small>
+                    <small *ngIf="coachSpecControl.errors?.['maxLength']" class="error-msg-color">Speciality can have upto 50 char's.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn" [disabled]="role === 'coaches' ? coachregisterForm.valid : userregisterForm.valid"> Sign Up</button>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+</form>
+
+<div *ngIf="registrationSuccess">
+    <ng-container *ngTemplateOutlet="successTemplate"></ng-container>
+</div>
+<ng-template #successTemplate>
+    <p>Account Created Successfully</p>
+    <p>Your {{ role === 'coaches' ? 'Coach' : 'User' }} Id is {{ role === 'coaches' ? coachId : userId }}</p>
+    <button (click)="directLogin()">Login Now</button>
+</ng-template>
+
+<ng-template #errorTemplate>
+    <p>{{ errorMessage }}</p>
+  </ng-template>

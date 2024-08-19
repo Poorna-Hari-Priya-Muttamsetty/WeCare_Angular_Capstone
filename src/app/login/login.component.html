@@ -1,0 +1,33 @@
+<div id="login-container">
+    <img [src] = "loginImg" alt="Login Image" class="login-img">
+    <h2>{{ loginTitle }}</h2>
+</div>
+
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+    <div>
+      <label for="id">{{ placeholder }}</label>
+      <input id="id" formControlName="id" [placeholder]="placeholder">
+      <div *ngIf="loginForm.get('id') as loginIdControl">
+          <div *ngIf="loginIdControl.invalid && loginIdControl.touched">
+              <small *ngIf="loginIdControl.errors?.['required']" class="error-message">ID is required.</small>
+          </div>
+      </div>
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password" placeholder="Password">
+      <div *ngIf="loginForm.get('password') as loginPsdControl">
+          <div *ngIf="loginPsdControl.invalid && loginPsdControl.touched">
+              <small *ngIf="loginPsdControl.errors?.['required']" class="error-message">Password is required.</small>
+              <small *ngIf="loginPsdControl.errors?.['minlength']" class="error-message">Password should have at least 5 characters.</small>
+              <small *ngIf="loginPsdControl.errors?.['maxlength']" class="error-message">Password can have up to 10 characters.</small>
+          </div>
+      </div>
+    </div>
+
+    <button type="submit" class = "login"> Login </button>
+
+    <div *ngIf="errorMessage">
+      <p>{{ errorMessage }}</p>
+    </div>
+  </form>
